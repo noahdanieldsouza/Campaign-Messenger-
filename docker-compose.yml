@@ -18,6 +18,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+
   # Ollama LLM
   ollama:
     image: ollama/ollama:latest
@@ -27,18 +28,18 @@ services:
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+     - |
+        (sleep 5 && ollama pull gemma:2b) & 
+        exec ollama serve
+
     healthcheck:
-      test: ["CMD", "ollama", "list"]
+      test: ["CMD-SHELL", "ollama list | grep 'gemma:2b'"]
       interval: 30s
       timeout: 10s
-      retries: 10
+      retries: 20
       start_period: 5m
-    entrypoint: ["/bin/sh", "-c"]
-    command: >
-      ollama serve & 
-      sleep 5 && 
-      ollama pull gemma:2b && 
-      wait -n
 
   # PostgreSQL Database
   db:
