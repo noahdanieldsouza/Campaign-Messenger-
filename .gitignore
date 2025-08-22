@@ -1,0 +1,18 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# React build
+frontend/build/
+
+# Logs
+*.log
+
+# Environment files
+.env
+
+# Docker
+*.pid
+*.seed
+*.tar
