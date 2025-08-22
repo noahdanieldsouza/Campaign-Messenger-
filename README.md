@@ -60,7 +60,7 @@ High priority:
 
 Medium Priority: 
 
-- Add support for custom model selection (LLama, etc) on a per-message basis.
+- Add support for users to add their own baseline context (for all messages - eg, about their candidate/campaign/issue) - right now this is hardcoded in the backend Ollama model. 
 - Improve contact matching - suggest "contact may already exist" for similar name + email combinations.
 
 Low Priority: 
