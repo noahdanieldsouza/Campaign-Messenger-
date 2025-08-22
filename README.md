@@ -29,9 +29,11 @@ Ollama (Gemma) – fast and local: Gemma will work even on a machine with limite
 
 ### Project Structure
 
-root --> docker-compose, init.sql, .env setup
+root --> docker-compose, .env setup
+
 /frontend --> react app running on localhost:3000
-/backend --> Node.js & Express API running on localhost:5000
+
+/backend --> Node.js & Express API running on localhost:5000 + init.sql to initialize SQL tables
 
 ### Tradeoffs
 
