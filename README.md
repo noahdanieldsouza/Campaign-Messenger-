@@ -1,11 +1,12 @@
 # About
-This project includes three core functionalities: creating a contact, editing a contact, and messaging a contact. It is meant to engage voters in order to drive voting turnout and ultimately build grassroots progressive power. 
+ *Campaigner* is a web application for campaign staff to engage voters, in order to drive voting turnout and ultimately build grassroots progressive power. 
+ This project includes three core functionalities as part of that application: creating a contact, editing a contact, and messaging a contact.
 
 ## To Run
 
 In the root directory, run "docker-compose up". This will start each of the four containers: frontend, backend, ollama, and postgres_db.
 
-During the first build, the Ollama container will take a few minutes to run. This is because it automatically pulls the Gemma model, which can take some time. 
+Note that during the first build, the Ollama container will take a few minutes to run. This is because it automatically pulls down the Gemma model, which can take some time (usually around 2-3 minutes). 
 
 Open "localhost:3000" on your browser - this is the default frontend URL. 
 
@@ -53,6 +54,7 @@ SQL vs NoSQL: Postgres works well for this small-scale application; however, usi
 
 High priority: 
 
+- Look for ways to optimize run-time inference to improve user experience interacting with the system
 - Add a real-time messaging system (send and receive) in a chatbox-like format.
 - Add user login to support the creation of multiple message chains.
 
