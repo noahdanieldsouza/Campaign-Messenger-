@@ -1,6 +1,14 @@
 const db = require('../services/db');
 
 const Message = {
+  /**
+   * Create a new message entry for a given contact.
+   * @param {Object} params - Message data.
+   * @param {number} params.contact_id - ID of the contact.
+   * @param {string} params.message_type - Type of the message (e.g., 'Introduction').
+   * @param {string} params.content - Message content.
+   * @returns {Promise<Object>} The newly created message record.
+   */
   async create({ contact_id, message_type, content }) {
     try {
       const result = await db.query(
@@ -25,6 +33,11 @@ const Message = {
     }
   },
 
+  /**
+   * Get all messages for a specific contact, ordered by newest first.
+   * @param {number} contact_id - ID of the contact.
+   * @returns {Promise<Array>} Array of message records.
+   */
   async getByContactId(contact_id) {
     try {
       const result = await db.query(
@@ -48,9 +61,14 @@ const Message = {
     }
   },
 
+  /**
+   * Get summary analytics on messages.
+   * Includes total count, messages by date, and top contacts by message count.
+   * @returns {Promise<Object>} Analytics data.
+   */
   async getAnalytics() {
     try {
-      // Total messages
+      // --- Total number of messages ---
       const totalMessagesRes = await db.query(`SELECT COUNT(*) FROM messages`);
       const totalMessages = parseInt(totalMessagesRes.rows[0].count, 10);
 
@@ -60,19 +78,20 @@ const Message = {
         throw error;
       }
 
-      // Messages by date
+      // --- Messages grouped by date ---
       const messagesByDateRes = await db.query(`
         SELECT TO_CHAR(created_at::date, 'YYYY-MM-DD') as date, COUNT(*) as count
         FROM messages
         GROUP BY date
         ORDER BY date DESC
       `);
+
       const messagesByDate = {};
       messagesByDateRes.rows.forEach(row => {
         messagesByDate[row.date] = parseInt(row.count, 10);
       });
 
-      // Top contacts by message count
+      // --- Top 5 contacts by message count ---
       const topContactsRes = await db.query(`
         SELECT
           contacts.id AS contact_id,
